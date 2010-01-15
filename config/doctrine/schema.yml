@@ -1,0 +1,813 @@
+Encuesta:
+  connection: doctrine
+  tableName: encuesta
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    etiqueta:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    descripcion:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    bienvenida:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    despedida:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    template:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    nombre_responsable:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    fecha_inicio:
+      type: date(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    fecha_expiracion:
+      type: date(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    id_organizacion:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    id_tipo_encuesta:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    TipoEncuesta:
+      local: id_tipo_encuesta
+      foreign: id
+      type: one
+    Organizacion:
+      local: id_organizacion
+      foreign: id
+      type: one
+    EncuestaGrupoUsuario:
+      local: id
+      foreign: id_encuesta
+      type: many
+    Encuestado:
+      local: id
+      foreign: id_encuesta
+      type: many
+    GrupoPregunta:
+      local: id
+      foreign: id_encuesta
+      type: many
+EncuestaGrupoUsuario:
+  connection: doctrine
+  tableName: encuesta_grupo_usuario
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    id_grupo_usuario:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    id_encuesta:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    GrupoUsuario:
+      local: id_grupo_usuario
+      foreign: id
+      type: one
+    Encuesta:
+      local: id_encuesta
+      foreign: id
+      type: one
+Encuestado:
+  connection: doctrine
+  tableName: encuestado
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    login:
+      type: string(40)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    password:
+      type: string(40)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    nombre_completo:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    correo:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    id_encuesta:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Encuesta:
+      local: id_encuesta
+      foreign: id
+      type: one
+    EncuestadoGrupoUsuario:
+      local: id
+      foreign: id_encuestado
+      type: many
+EncuestadoGrupoUsuario:
+  connection: doctrine
+  tableName: encuestado_grupo_usuario
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    id_encuestado:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    id_grupo_usuario:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Encuestado:
+      local: id_encuestado
+      foreign: id
+      type: one
+    GrupoUsuario:
+      local: id_grupo_usuario
+      foreign: id
+      type: one
+GrupoPregunta:
+  connection: doctrine
+  tableName: grupo_pregunta
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    etiqueta:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    descripcion:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    orden:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    id_encuesta:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Encuesta:
+      local: id_encuesta
+      foreign: id
+      type: one
+    Pregunta:
+      local: id
+      foreign: id_grupo_pregunta
+      type: many
+GrupoUsuario:
+  connection: doctrine
+  tableName: grupo_usuario
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    etiqueta:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    id_organizacion:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Organizacion:
+      local: id_organizacion
+      foreign: id
+      type: one
+    EncuestaGrupoUsuario:
+      local: id
+      foreign: id_grupo_usuario
+      type: many
+    EncuestadoGrupoUsuario:
+      local: id
+      foreign: id_grupo_usuario
+      type: many
+Organizacion:
+  connection: doctrine
+  tableName: organizacion
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    etiqueta:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Encuesta:
+      local: id
+      foreign: id_organizacion
+      type: many
+    GrupoUsuario:
+      local: id
+      foreign: id_organizacion
+      type: many
+    UsuarioOrganizacion:
+      local: id
+      foreign: id_organizacion
+      type: many
+Pregunta:
+  connection: doctrine
+  tableName: pregunta
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    etiqueta:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    pregunta:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    orden:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    fecha_modificacion:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    obligatoria:
+      type: integer(2)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    id_grupo_pregunta:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    id_tipo_pregunta:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    GrupoPregunta:
+      local: id_grupo_pregunta
+      foreign: id
+      type: one
+    TipoPregunta:
+      local: id_tipo_pregunta
+      foreign: id
+      type: one
+    PreguntaAtributo:
+      local: id
+      foreign: id_pregunta
+      type: many
+    PreguntaColumna:
+      local: id
+      foreign: id_pregunta
+      type: many
+    PreguntaFila:
+      local: id
+      foreign: id_pregunta
+      type: many
+    PreguntaRespuesta:
+      local: id
+      foreign: id_pregunta
+      type: many
+PreguntaAtributo:
+  connection: doctrine
+  tableName: pregunta_atributo
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    id_tipo_atributo:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    id_pregunta:
+      type: integer(8)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    valor:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    TipoAtributo:
+      local: id_tipo_atributo
+      foreign: id
+      type: one
+    Pregunta:
+      local: id_pregunta
+      foreign: id
+      type: one
+PreguntaColumna:
+  connection: doctrine
+  tableName: pregunta_columna
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    etiqueta:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    orden:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: false
+      autoincrement: false
+    opciones:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    id_pregunta:
+      type: integer(8)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Pregunta:
+      local: id_pregunta
+      foreign: id
+      type: one
+    PreguntaColumnaOpcion:
+      local: id
+      foreign: id_pregunta_columna
+      type: many
+PreguntaColumnaOpcion:
+  connection: doctrine
+  tableName: pregunta_columna_opcion
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    etiqueta:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    id_pregunta_columna:
+      type: integer(8)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    PreguntaColumna:
+      local: id_pregunta_columna
+      foreign: id
+      type: one
+PreguntaFila:
+  connection: doctrine
+  tableName: pregunta_fila
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    etiqueta:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    orden:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: false
+      autoincrement: false
+    id_pregunta:
+      type: integer(8)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Pregunta:
+      local: id_pregunta
+      foreign: id
+      type: one
+PreguntaOpcion:
+  connection: doctrine
+  tableName: pregunta_opcion
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    etiqueta:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+PreguntaRespuesta:
+  connection: doctrine
+  tableName: pregunta_respuesta
+  columns:
+    id:
+      type: integer(8)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    respuesta:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    valor_default:
+      type: string(1)
+      fixed: true
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    orden:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: false
+      autoincrement: false
+    id_pregunta:
+      type: integer(8)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Pregunta:
+      local: id_pregunta
+      foreign: id
+      type: one
+TipoAtributo:
+  connection: doctrine
+  tableName: tipo_atributo
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: false
+    etiqueta:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    PreguntaAtributo:
+      local: id
+      foreign: id_tipo_atributo
+      type: many
+TipoEncuesta:
+  connection: doctrine
+  tableName: tipo_encuesta
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: false
+    etiqueta:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Encuesta:
+      local: id
+      foreign: id_tipo_encuesta
+      type: many
+TipoPregunta:
+  connection: doctrine
+  tableName: tipo_pregunta
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: false
+    etiqueta:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Pregunta:
+      local: id
+      foreign: id_tipo_pregunta
+      type: many
+TipoUsuario:
+  connection: doctrine
+  tableName: tipo_usuario
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: false
+    etiqueta:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    credencial:
+      type: string(50)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Usuario:
+      local: id
+      foreign: id_tipo_usuario
+      type: many
+Usuario:
+  connection: doctrine
+  tableName: usuario
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    login:
+      type: string(40)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    password:
+      type: string(40)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    nombre_completo:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    correo:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    id_tipo_usuario:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    TipoUsuario:
+      local: id_tipo_usuario
+      foreign: id
+      type: one
+    UsuarioOrganizacion:
+      local: id
+      foreign: id_usuario
+      type: many
+UsuarioOrganizacion:
+  connection: doctrine
+  tableName: usuario_organizacion
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    id_usuario:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    id_organizacion:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Usuario:
+      local: id_usuario
+      foreign: id
+      type: one
+    Organizacion:
+      local: id_organizacion
+      foreign: id
+      type: one
